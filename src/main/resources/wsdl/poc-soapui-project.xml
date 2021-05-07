@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="b29bc324-4556-4e9a-ac37-acd3bb7b62b3" activeEnvironment="Default" name="poc" resourceRoot="${projectDir}" soapui-version="5.6.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="2e1e14f7-93d7-4b57-950e-279e53495dc2" wsaVersion="NONE" name="BookServiceSOAP" type="wsdl" bindingName="{http://www.cleverbuilder.com/BookService/}BookServiceSOAP" soapVersion="1_1" anonymous="optional" definition="helloworld.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\D:\projects\poc\poc\src\main\resources\wsdl\helloworld.wsdl"><con:part><con:url>file:\D:\projects\poc\poc\src\main\resources\wsdl\helloworld.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="BookService" targetNamespace="http://www.cleverbuilder.com/BookService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.cleverbuilder.com/BookService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:documentation>Definition for a web service called BookService,
+        which can be used to add or retrieve books from a collection.</wsdl:documentation>
+  <!--The `types` element defines the data types (XML elements)
+        that are used by the web service.-->
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.cleverbuilder.com/BookService/">
+      <xsd:element name="Book">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ID" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="Title" type="xsd:string"/>
+            <xsd:element name="Author" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="Books">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="tns:Book" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBook">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="ID" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetBookResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="tns:Book" minOccurs="0" maxOccurs="1"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddBook">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="tns:Book" minOccurs="1" maxOccurs="1"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="AddBookResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="tns:Book" minOccurs="0" maxOccurs="1"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetAllBooks">
+        <xsd:complexType/>
+      </xsd:element>
+      <xsd:element name="GetAllBooksResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element ref="tns:Book" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <!--A wsdl `message` element is used to define a message
+        exchanged between a web service, consisting of zero
+        or more `part`s.-->
+  <wsdl:message name="GetBookRequest">
+    <wsdl:part element="tns:GetBook" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetBookResponse">
+    <wsdl:part element="tns:GetBookResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="AddBookRequest">
+    <wsdl:part name="parameters" element="tns:AddBook"/>
+  </wsdl:message>
+  <wsdl:message name="AddBookResponse">
+    <wsdl:part name="parameters" element="tns:AddBookResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllBooksRequest">
+    <wsdl:part name="parameters" element="tns:GetAllBooks"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllBooksResponse">
+    <wsdl:part name="parameters" element="tns:GetAllBooksResponse"/>
+  </wsdl:message>
+  <!--A WSDL `portType` is used to combine multiple `message`s
+        (e.g. input, output) into a single operation.
+
+        Here we define three synchronous (input/output) operations
+        and the `message`s that must be used for each.-->
+  <wsdl:portType name="BookService">
+    <wsdl:operation name="GetBook">
+      <wsdl:input message="tns:GetBookRequest"/>
+      <wsdl:output message="tns:GetBookResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddBook">
+      <wsdl:input message="tns:AddBookRequest"/>
+      <wsdl:output message="tns:AddBookResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBooks">
+      <wsdl:input message="tns:GetAllBooksRequest"/>
+      <wsdl:output message="tns:GetAllBooksResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <!--The `binding` element defines exactly how each
+        `operation` will take place over the network.
+        In this case, we are using SOAP.-->
+  <wsdl:binding name="BookServiceSOAP" type="tns:BookService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetBook">
+      <soap:operation soapAction="http://www.cleverbuilder.com/BookService/GetBook"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddBook">
+      <soap:operation soapAction="http://www.cleverbuilder.com/BookService/AddBook"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllBooks">
+      <soap:operation soapAction="http://www.cleverbuilder.com/BookService/GetAllBooks"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <!--The `service` element finally says where the service
+        can be accessed from - in other words, its endpoint.-->
+  <wsdl:service name="BookService">
+    <wsdl:port binding="tns:BookServiceSOAP" name="BookServiceSOAP">
+      <soap:address location="http://www.example.org/BookService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://EPRUMOSW0187:8088/mockBookServiceSOAP</con:endpoint><con:endpoint>http://www.example.org/BookService</con:endpoint></con:endpoints><con:operation id="f792e8c7-f489-4b91-9e1c-bf31d50058d6" isOneWay="false" action="http://www.cleverbuilder.com/BookService/AddBook" name="AddBook" bindingOperationName="AddBook" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c690e70d-6ca3-46fc-b967-d62eb108a418" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.example.org/BookService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <book:AddBook>\r
+         <book:Book>\r
+            <!--Optional:-->\r
+            <ID>?</ID>\r
+            <Title>?</Title>\r
+            <Author>?</Author>\r
+         </book:Book>\r
+      </book:AddBook>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.cleverbuilder.com/BookService/AddBook"/></con:call></con:operation><con:operation id="32c0c74e-54b3-4a07-9df8-2f9ef5bf155e" isOneWay="false" action="http://www.cleverbuilder.com/BookService/GetAllBooks" name="GetAllBooks" bindingOperationName="GetAllBooks" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="540a0ad9-b46f-4c6b-9715-68f3d3e2e8b5" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:8080/soap-api/BookService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <book:GetAllBooks/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.cleverbuilder.com/BookService/GetAllBooks"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="658e8150-961d-49c3-b475-8a189909d344" isOneWay="false" action="http://www.cleverbuilder.com/BookService/GetBook" name="GetBook" bindingOperationName="GetBook" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="03503a75-2fbe-4ceb-8622-408a36af30de" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soap-api/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <book:GetBook>\r
+         <ID>c</ID>\r
+      </book:GetBook>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.cleverbuilder.com/BookService/GetBook"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite id="02aeee3d-03ae-4a29-b423-14b6c3738f4c" name="BookServiceSOAP TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="30db39a2-479d-4295-a121-d8521068905a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="AddBook TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="461c6bfa-90b8-4eb0-8c94-8cfb77236a4b" name="AddBook"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BookServiceSOAP</con:interface><con:operation>AddBook</con:operation><con:request name="AddBook" id="ba7adb01-2986-4967-874b-a87543e9fe36"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.example.org/BookService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <book:AddBook>\r
+         <book:Book>\r
+            <!--Optional:-->\r
+            <ID>?</ID>\r
+            <Title>?</Title>\r
+            <Author>?</Author>\r
+         </book:Book>\r
+      </book:AddBook>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.cleverbuilder.com/BookService/AddBook" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="ea1fcad5-8c5b-4dbe-bfdb-549c9f9fbae8" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetAllBooks TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="cc7f0034-749e-40ec-9ff5-f5106c6b7cd1" name="GetAllBooks"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BookServiceSOAP</con:interface><con:operation>GetAllBooks</con:operation><con:request name="GetAllBooks" id="20d874d1-44ca-450b-bad1-d6f8f4735b50"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://www.example.org/BookService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <book:GetAllBooks/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.cleverbuilder.com/BookService/GetAllBooks" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase id="e34ba10e-5120-4a5b-8c8c-2ad7cc8dcf02" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetBook TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="e7a23b42-fd44-422d-b8b8-8e29b9ee453f" name="GetBook"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>BookServiceSOAP</con:interface><con:operation>GetBook</con:operation><con:request name="GetBook" id="4c28a310-1092-4332-b3d8-c06204c1f6ba"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soup-api/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <book:GetBook>\r
+         <ID>?</ID>\r
+      </book:GetBook>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.cleverbuilder.com/BookService/GetBook" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:mockService id="c24e0d7d-755c-4deb-9d08-2fb785c943d8" port="8088" path="/mockBookServiceSOAP" host="EPRUMOSW0187" name="BookServiceSOAP MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="AddBook" id="bb93f662-60bc-4df6-8b79-f349fa93d9fd" interface="BookServiceSOAP" operation="AddBook"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="ccd025b6-4d8b-4a8f-8484-7019ab8b69c7" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <book:AddBookResponse>
+         <!--Optional:-->
+         <book:Book>
+            <!--Optional:-->
+            <ID>?</ID>
+            <Title>?</Title>
+            <Author>?</Author>
+         </book:Book>
+      </book:AddBookResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.cleverbuilder.com/BookService/AddBook"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="GetAllBooks" id="a169c1ed-a4c2-4cc3-b8ac-2abef1e60eb3" interface="BookServiceSOAP" operation="GetAllBooks"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="d54f651b-8351-4b04-924a-434a6cfac588" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <book:GetAllBooksResponse>
+         <!--Zero or more repetitions:-->
+         <book:Book>
+            <!--Optional:-->
+            <ID>?</ID>
+            <Title>?</Title>
+            <Author>?</Author>
+         </book:Book>
+      </book:GetAllBooksResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.cleverbuilder.com/BookService/GetAllBooks"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="GetBook" id="d148726e-ab8d-4ada-9eda-f5d6133bc5a8" interface="BookServiceSOAP" operation="GetBook"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="fc70a2ca-7cae-4778-9d86-c95190ed1dd4" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="http://www.cleverbuilder.com/BookService/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <book:GetBookResponse>
+         <!--Optional:-->
+         <book:Book>
+            <!--Optional:-->
+            <ID>?</ID>
+            <Title>?</Title>
+            <Author>?</Author>
+         </book:Book>
+      </book:GetBookResponse>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.cleverbuilder.com/BookService/GetBook"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
